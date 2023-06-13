@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+   <head>
+     
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <%- include('base') %>
+      <title>Vaccine Centers</title>
+   </head>
+   <body>
+      <header class="navbar navbar-expand-lg navbar-light">
+         <div class="container-fluid">
+            <a class="navbar-brand text-white ml-4" href="/admin/"><b>Centers</b></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+               <div class="mr-5">
+                  <ul class="navbar-nav mr-auto mr-0">
+                     <li class="nav-item">
+                        <form method="post" action="/logout" >
+                           <input type="submit" value="Logout">
+                        </form>
+                        
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </header>
+      <div class="container-fluid bg-side-nav">
+         <div class="row">
+            
+            <div class="col-lg-10">
+
+              <div class="dashboard-content-area">
+               
+               <h1>All Request</h1>
+               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th> centername</th>
+                        <th> address</th>
+                        <th> morningslot</th>
+                        <th> eveningslot </th>
+                        <th> city </th>
+                        <th> pincode </th>
+                        <th> </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% appro.forEach(HospitalSchema => { %>
+                     <tr>
+                        <td><%= HospitalSchema.centername %></td>
+                        <td><%= HospitalSchema.address %></td>
+                        <td><%= HospitalSchema.morningslot %></td>
+                        <td><%= HospitalSchema.eveningslot %></td>
+                        <td><%= HospitalSchema.city %></td>
+                        <td><%= HospitalSchema.pincode %></td>
+                       
+                        <td>
+                        <form style="display: inline;" action="/availableslots" method="POST">
+                           <input type="hidden" name="centerId" value="<%= HospitalSchema._id %>">
+                           <input id="app_<%= HospitalSchema._id %>" type="hidden" name="approval" value="deny">
+                           <button onclick="document.getElementById('app_<%= HospitalSchema._id %>').value='approve'" style="cursor: pointer;" type="submit" class="btn btn-primary">Apply</button>
+                        </form>
+                        </td>
+
+
+                     </tr>
+                     <% }); %>
+                  </tbody>
+               </table>
+                 
+             </div>
+
+            </div>
+         </div>
+      </div>
+      
+    
+   </body>
+
+</html>
